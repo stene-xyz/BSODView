@@ -39,11 +39,14 @@ namespace BSODView
                             {
                                 foreach (XmlNode dataItem in data.ChildNodes)
                                 {
-                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckCode") crash.crashType = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText));
-                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter1") crash.parameters[0] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter2") crash.parameters[1] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter3") crash.parameters[2] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter4") crash.parameters[3] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
+                                    Console.WriteLine(dataItem.InnerText);
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckCode")
+                                        if (!dataItem.InnerText.Equals("0"))
+                                            crash.crashType = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter1") crash.parameters[0] = "0x" + string.Format("{0:X16}", Int64.Parse(dataItem.InnerText.Substring(2), System.Globalization.NumberStyles.HexNumber));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter2") crash.parameters[1] = "0x" + string.Format("{0:X16}", Int64.Parse(dataItem.InnerText.Substring(2), System.Globalization.NumberStyles.HexNumber));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter3") crash.parameters[2] = "0x" + string.Format("{0:X16}", Int64.Parse(dataItem.InnerText.Substring(2), System.Globalization.NumberStyles.HexNumber));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter4") crash.parameters[3] = "0x" + string.Format("{0:X16}", Int64.Parse(dataItem.InnerText.Substring(2), System.Globalization.NumberStyles.HexNumber));
                                 }
                             }
                             if (data.Name.Equals("RenderingInfo"))

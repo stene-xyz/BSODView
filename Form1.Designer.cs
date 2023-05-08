@@ -42,40 +42,42 @@ namespace BSODView
             // 
             // CrashSelector
             // 
+            this.CrashSelector.Font = new System.Drawing.Font("Lucida Console", 9.25F);
             this.CrashSelector.FormattingEnabled = true;
-            this.CrashSelector.Location = new System.Drawing.Point(12, 12);
+            this.CrashSelector.ItemHeight = 12;
+            this.CrashSelector.Location = new System.Drawing.Point(12, 36);
             this.CrashSelector.Name = "CrashSelector";
-            this.CrashSelector.Size = new System.Drawing.Size(162, 329);
+            this.CrashSelector.Size = new System.Drawing.Size(162, 352);
             this.CrashSelector.TabIndex = 0;
             this.CrashSelector.SelectedIndexChanged += new System.EventHandler(this.CrashSelector_SelectedIndexChanged);
             // 
             // CrashInfo
             // 
-            this.CrashInfo.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CrashInfo.Font = new System.Drawing.Font("Lucida Console", 9.25F);
             this.CrashInfo.FormattingEnabled = true;
             this.CrashInfo.HorizontalScrollbar = true;
-            this.CrashInfo.ItemHeight = 15;
+            this.CrashInfo.ItemHeight = 12;
             this.CrashInfo.Location = new System.Drawing.Point(180, 12);
             this.CrashInfo.Name = "CrashInfo";
             this.CrashInfo.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.CrashInfo.Size = new System.Drawing.Size(608, 379);
+            this.CrashInfo.Size = new System.Drawing.Size(498, 376);
             this.CrashInfo.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(563, 399);
+            this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 25);
+            this.label1.Size = new System.Drawing.Size(134, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "BSODView RC2 - stene.xyz";
+            this.label1.Text = "BSODView RC3";
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(12, 403);
+            this.loadButton.Location = new System.Drawing.Point(348, 394);
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(87, 22);
+            this.loadButton.Size = new System.Drawing.Size(162, 22);
             this.loadButton.TabIndex = 3;
             this.loadButton.Text = "Load from file";
             this.loadButton.UseVisualStyleBackColor = true;
@@ -90,9 +92,9 @@ namespace BSODView
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(105, 403);
+            this.helpButton.Location = new System.Drawing.Point(516, 394);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(69, 22);
+            this.helpButton.Size = new System.Drawing.Size(162, 22);
             this.helpButton.TabIndex = 4;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
@@ -100,7 +102,7 @@ namespace BSODView
             // 
             // loadFromSystemButton
             // 
-            this.loadFromSystemButton.Location = new System.Drawing.Point(12, 375);
+            this.loadFromSystemButton.Location = new System.Drawing.Point(180, 394);
             this.loadFromSystemButton.Name = "loadFromSystemButton";
             this.loadFromSystemButton.Size = new System.Drawing.Size(162, 22);
             this.loadFromSystemButton.TabIndex = 5;
@@ -110,7 +112,7 @@ namespace BSODView
             // 
             // loadFromDriveButton
             // 
-            this.loadFromDriveButton.Location = new System.Drawing.Point(12, 347);
+            this.loadFromDriveButton.Location = new System.Drawing.Point(12, 394);
             this.loadFromDriveButton.Name = "loadFromDriveButton";
             this.loadFromDriveButton.Size = new System.Drawing.Size(162, 22);
             this.loadFromDriveButton.TabIndex = 6;
@@ -122,7 +124,7 @@ namespace BSODView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 434);
+            this.ClientSize = new System.Drawing.Size(689, 424);
             this.Controls.Add(this.loadFromDriveButton);
             this.Controls.Add(this.loadFromSystemButton);
             this.Controls.Add(this.helpButton);

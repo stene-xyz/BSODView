@@ -22,3 +22,7 @@ F:\Sync\Projects\BSODView\obj\Release\BSODView.exe
 F:\Sync\Projects\BSODView\obj\Release\BSODView.pdb
 F:\Sync\Projects\BSODView\obj\Release\BSODView.DriveSelector.resources
 F:\Sync\Projects\BSODView\obj\Release\BSODView.ErrorInfoForm.resources
+F:\Sync\Projects\BSODView\bin\Release\BSODView.exe.manifest
+F:\Sync\Projects\BSODView\bin\Release\BSODView.application
+F:\Sync\Projects\BSODView\obj\Release\BSODView.exe.manifest
+F:\Sync\Projects\BSODView\obj\Release\BSODView.application
