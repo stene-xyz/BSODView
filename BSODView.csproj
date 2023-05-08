@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DriveSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DriveSelector.Designer.cs">
+      <DependentUpon>DriveSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorInfoForm.Designer.cs">
+      <DependentUpon>ErrorInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +72,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DriveSelector.resx">
+      <DependentUpon>DriveSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorInfoForm.resx">
+      <DependentUpon>ErrorInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,7 +92,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="branding\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

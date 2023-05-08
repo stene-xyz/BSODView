@@ -29,20 +29,23 @@ namespace BSODView
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.CrashSelector = new System.Windows.Forms.ListBox();
             this.CrashInfo = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.loadButton = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.helpButton = new System.Windows.Forms.Button();
+            this.loadFromSystemButton = new System.Windows.Forms.Button();
+            this.loadFromDriveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CrashSelector
             // 
             this.CrashSelector.FormattingEnabled = true;
-            this.CrashSelector.Location = new System.Drawing.Point(12, 38);
+            this.CrashSelector.Location = new System.Drawing.Point(12, 12);
             this.CrashSelector.Name = "CrashSelector";
-            this.CrashSelector.Size = new System.Drawing.Size(162, 355);
+            this.CrashSelector.Size = new System.Drawing.Size(162, 329);
             this.CrashSelector.TabIndex = 0;
             this.CrashSelector.SelectedIndexChanged += new System.EventHandler(this.CrashSelector_SelectedIndexChanged);
             // 
@@ -52,31 +55,29 @@ namespace BSODView
             this.CrashInfo.FormattingEnabled = true;
             this.CrashInfo.HorizontalScrollbar = true;
             this.CrashInfo.ItemHeight = 15;
-            this.CrashInfo.Items.AddRange(new object[] {
-            "Load a .XML file, then select a crash!"});
             this.CrashInfo.Location = new System.Drawing.Point(180, 12);
             this.CrashInfo.Name = "CrashInfo";
             this.CrashInfo.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.CrashInfo.Size = new System.Drawing.Size(608, 409);
+            this.CrashInfo.Size = new System.Drawing.Size(608, 379);
             this.CrashInfo.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 9);
+            this.label1.Location = new System.Drawing.Point(563, 399);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 25);
+            this.label1.Size = new System.Drawing.Size(225, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "BSODView";
+            this.label1.Text = "BSODView RC2 - stene.xyz";
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(12, 399);
+            this.loadButton.Location = new System.Drawing.Point(12, 403);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(87, 22);
             this.loadButton.TabIndex = 3;
-            this.loadButton.Text = "Load .XML file";
+            this.loadButton.Text = "Load from file";
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
@@ -84,12 +85,12 @@ namespace BSODView
             // 
             this.openFileDialog1.DefaultExt = "xml";
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Event Viewer XML|*.xml";
+            this.openFileDialog1.Filter = "Windows Event Logs|*.evtx";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // helpButton
             // 
-            this.helpButton.Location = new System.Drawing.Point(105, 399);
+            this.helpButton.Location = new System.Drawing.Point(105, 403);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(69, 22);
             this.helpButton.TabIndex = 4;
@@ -97,20 +98,45 @@ namespace BSODView
             this.helpButton.UseVisualStyleBackColor = true;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
+            // loadFromSystemButton
+            // 
+            this.loadFromSystemButton.Location = new System.Drawing.Point(12, 375);
+            this.loadFromSystemButton.Name = "loadFromSystemButton";
+            this.loadFromSystemButton.Size = new System.Drawing.Size(162, 22);
+            this.loadFromSystemButton.TabIndex = 5;
+            this.loadFromSystemButton.Text = "Load from System";
+            this.loadFromSystemButton.UseVisualStyleBackColor = true;
+            this.loadFromSystemButton.Click += new System.EventHandler(this.loadFromSystemButton_Click);
+            // 
+            // loadFromDriveButton
+            // 
+            this.loadFromDriveButton.Location = new System.Drawing.Point(12, 347);
+            this.loadFromDriveButton.Name = "loadFromDriveButton";
+            this.loadFromDriveButton.Size = new System.Drawing.Size(162, 22);
+            this.loadFromDriveButton.TabIndex = 6;
+            this.loadFromDriveButton.Text = "Load from Drive";
+            this.loadFromDriveButton.UseVisualStyleBackColor = true;
+            this.loadFromDriveButton.Click += new System.EventHandler(this.loadFromDriveButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 434);
+            this.Controls.Add(this.loadFromDriveButton);
+            this.Controls.Add(this.loadFromSystemButton);
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.CrashInfo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CrashSelector);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.Text = "BSODView";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +150,8 @@ namespace BSODView
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button helpButton;
+        private System.Windows.Forms.Button loadFromSystemButton;
+        private System.Windows.Forms.Button loadFromDriveButton;
     }
 }
 

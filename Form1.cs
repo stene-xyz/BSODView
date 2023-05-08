@@ -1,73 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Principal;
+using System.Diagnostics;
 
 namespace BSODView
-{   
+{
     public partial class Form1 : Form
     {
 
         Dictionary<string, string> translation = new Dictionary<string, string>();
         Crash[] crashes;
         
+        public void LoadEVTXFile(string filename)
+        {
+            List<Crash> crashList = new List<Crash>();
+            EventLogQuery logQuery = new EventLogQuery(filename, PathType.FilePath, "*[System/Level=1]");
+            try
+            {
+                EventLogReader logReader = new EventLogReader(logQuery);
+                EventRecord eventDetail;
+                while(true) {
+                    try
+                    {
+                        eventDetail = logReader.ReadEvent();
+                        if (eventDetail == null) break;
+                        Crash crash = new Crash();
+                        crash.timestamp = eventDetail.TimeCreated.ToString();
+                        XmlDocument doc = new XmlDocument();
+                        doc.LoadXml(eventDetail.ToXml());
+                        XmlNode eventData = doc.ChildNodes[0];
+                        foreach (XmlNode data in eventData.ChildNodes)
+                        {
+                            if (data.Name.Equals("EventData"))
+                            {
+                                foreach (XmlNode dataItem in data.ChildNodes)
+                                {
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckCode") crash.crashType = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter1") crash.parameters[0] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter2") crash.parameters[1] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter3") crash.parameters[2] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
+                                    if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter4") crash.parameters[3] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
+                                }
+                            }
+                            if (data.Name.Equals("RenderingInfo"))
+                            {
+                                foreach (XmlNode dataItem in data.ChildNodes)
+                                {
+                                    if (dataItem.Name.Equals("Message"))
+                                    {
+                                        crash.message = dataItem.InnerText;
+                                    }
+                                }
+                            }
+                        }
+                        if (crash.crashType.Length > 0) crashList.Add(crash);
+                    }
+                    catch(Exception e)
+                    {
+                        ErrorInfoForm info = new ErrorInfoForm();
+                        info.UpdateText("Error reading EVTX File", e);
+                        info.Show();
+                        break;
+                    }
+                }
+                crashes = crashList.ToArray();
+                CrashSelector.Items.Clear();
+                for (int i = 0; i < crashes.Length; i++)
+                {
+                    CrashSelector.Items.Add(crashes[i].timestamp);
+                }
+            }
+            catch(Exception e)
+            {
+                ErrorInfoForm info = new ErrorInfoForm();
+                info.UpdateText("Error reading EVTX File", e);
+                info.Show();
+            }
+        }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            List<Crash> crashList = new List<Crash>();
-            XmlDocument doc = new XmlDocument();
-            doc.Load(openFileDialog1.FileName);
-            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
-            {
-                Crash crash = new Crash();
-                foreach(XmlNode data in node.ChildNodes)
-                {
-                    if (data.Name.Equals("EventData"))
-                    {
-                        foreach (XmlNode dataItem in data.ChildNodes)
-                        {
-                            if (dataItem.Attributes["Name"].InnerText == "BugcheckCode") crash.crashType = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText));
-                            if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter1") crash.parameters[0] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                            if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter2") crash.parameters[1] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                            if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter3") crash.parameters[2] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                            if (dataItem.Attributes["Name"].InnerText == "BugcheckParameter4") crash.parameters[3] = "0x" + string.Format("{0:X8}", int.Parse(dataItem.InnerText.Substring(2)));
-                        }
-                    }
-                    if(data.Name.Equals("System"))
-                    {
-                        foreach (XmlNode dataItem in data.ChildNodes)
-                        {
-                            if (dataItem.Name.Equals("TimeCreated")) 
-                            {
-                                crash.timestamp = dataItem.Attributes["SystemTime"].InnerText;
-                            }
-                        }
-                    }
-                    if(data.Name.Equals("RenderingInfo"))
-                    {
-                        foreach (XmlNode dataItem in data.ChildNodes)
-                        {
-                            if (dataItem.Name.Equals("Message"))
-                            {
-                                crash.message = dataItem.InnerText;
-                            }
-                        }
-                    }
-                    if (crash.crashType.Length > 0) crashList.Add(crash);
-                }
-            }
-            crashes = crashList.ToArray();
-            CrashSelector.Items.Clear();
-            for(int i = 0; i < crashes.Length; i++)
-            {
-                CrashSelector.Items.Add(crashes[i].timestamp);
-            }
+            LoadEVTXFile(openFileDialog1.FileName);
         }
 
         private void loadButton_Click(object sender, EventArgs e)
@@ -91,6 +108,34 @@ namespace BSODView
             CrashInfo.Items.Add("Parameter 2: " + crashes[i].parameters[1]);
             CrashInfo.Items.Add("Parameter 3: " + crashes[i].parameters[2]);
             CrashInfo.Items.Add("Parameter 4: " + crashes[i].parameters[3]);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Check for admin privs
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            if(!principal.IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                var exeName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
+                startInfo.Verb = "runas";
+                System.Diagnostics.Process.Start(startInfo);
+                Application.Exit();
+            }
+
+            // Load the current system's logs
+            LoadEVTXFile("C:\\Windows\\System32\\winevt\\Logs\\System.evtx");
+        }
+
+        private void loadFromSystemButton_Click(object sender, EventArgs e)
+        {
+            LoadEVTXFile("C:\\Windows\\System32\\winevt\\Logs\\System.evtx");
+        }
+
+        private void loadFromDriveButton_Click(object sender, EventArgs e)
+        {
+            new DriveSelector().Show();
         }
 
         public Form1()
