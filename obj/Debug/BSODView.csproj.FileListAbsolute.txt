@@ -1,0 +1,11 @@
+F:\Sync\Projects\JEAntimalware\BSODView\bin\Debug\BSODView.exe.config
+F:\Sync\Projects\JEAntimalware\BSODView\bin\Debug\BSODView.exe
+F:\Sync\Projects\JEAntimalware\BSODView\bin\Debug\BSODView.pdb
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.csproj.AssemblyReference.cache
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.Form1.resources
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.Help.resources
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.Properties.Resources.resources
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.csproj.GenerateResource.cache
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.csproj.CoreCompileInputs.cache
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.exe
+F:\Sync\Projects\JEAntimalware\BSODView\obj\Debug\BSODView.pdb
