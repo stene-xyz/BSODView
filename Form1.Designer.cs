@@ -38,6 +38,7 @@ namespace BSODView
             this.helpButton = new System.Windows.Forms.Button();
             this.loadFromSystemButton = new System.Windows.Forms.Button();
             this.loadFromDriveButton = new System.Windows.Forms.Button();
+            this.openDocsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CrashSelector
@@ -60,7 +61,7 @@ namespace BSODView
             this.CrashInfo.Location = new System.Drawing.Point(180, 12);
             this.CrashInfo.Name = "CrashInfo";
             this.CrashInfo.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.CrashInfo.Size = new System.Drawing.Size(498, 376);
+            this.CrashInfo.Size = new System.Drawing.Size(498, 352);
             this.CrashInfo.TabIndex = 1;
             // 
             // label1
@@ -69,9 +70,9 @@ namespace BSODView
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 25);
+            this.label1.Size = new System.Drawing.Size(96, 25);
             this.label1.TabIndex = 2;
-            this.label1.Text = "BSODView RC3";
+            this.label1.Text = "BSODView";
             // 
             // loadButton
             // 
@@ -120,11 +121,22 @@ namespace BSODView
             this.loadFromDriveButton.UseVisualStyleBackColor = true;
             this.loadFromDriveButton.Click += new System.EventHandler(this.loadFromDriveButton_Click);
             // 
+            // openDocsButton
+            // 
+            this.openDocsButton.Location = new System.Drawing.Point(180, 366);
+            this.openDocsButton.Name = "openDocsButton";
+            this.openDocsButton.Size = new System.Drawing.Size(497, 22);
+            this.openDocsButton.TabIndex = 7;
+            this.openDocsButton.Text = "Open Microsoft Developer Documentation";
+            this.openDocsButton.UseVisualStyleBackColor = true;
+            this.openDocsButton.Click += new System.EventHandler(this.openDocsButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(689, 424);
+            this.Controls.Add(this.openDocsButton);
             this.Controls.Add(this.loadFromDriveButton);
             this.Controls.Add(this.loadFromSystemButton);
             this.Controls.Add(this.helpButton);
@@ -154,6 +166,7 @@ namespace BSODView
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Button loadFromSystemButton;
         private System.Windows.Forms.Button loadFromDriveButton;
+        private System.Windows.Forms.Button openDocsButton;
     }
 }
 
